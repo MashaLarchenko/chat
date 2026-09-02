@@ -1,0 +1,142 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  USER
+  ADMIN
+}
+
+enum PrivateRequestStatus {
+  PENDING
+  ACCEPTED
+  DECLINED
+}
+
+model User {
+  id                      String            @id @default(cuid())
+  email                   String            @unique
+  password                String
+  name                    String?
+  role                    UserRole          @default(USER)
+  sentMessages            Message[]         @relation("SentMessages")
+  receivedMessages        Message[]         @relation("ReceivedMessages")
+  reactions               MessageReaction[] @relation("UserReactions")
+  createdRooms            Room[]            @relation("RoomCreator")
+  roomMemberships         RoomMember[]      @relation("RoomMembers")
+  roomMessages            RoomMessage[]     @relation("RoomMessages")
+  sentPrivateRequests     PrivateRequest[]  @relation("RequestSender")
+  receivedPrivateRequests PrivateRequest[]  @relation("RequestRecipient")
+  privateRoomsOne         PrivateRoom[]     @relation("PrivateRoomUserOne")
+  privateRoomsTwo         PrivateRoom[]     @relation("PrivateRoomUserTwo")
+  privateMessages         PrivateMessage[]  @relation("PrivateMessageSender")
+  createdAt               DateTime          @default(now())
+  updatedAt               DateTime          @updatedAt
+}
+
+model Message {
+  id      String  @id @default(cuid())
+  content String
+  userId  String
+  user    User    @relation("SentMessages", fields: [userId], references: [id])
+  isAI    Boolean @default(false)
+
+  recipientId String?
+  recipient   User?   @relation("ReceivedMessages", fields: [recipientId], references: [id])
+
+  // Реакции
+  reactions MessageReaction[]
+
+  createdAt DateTime @default(now())
+}
+
+model MessageReaction {
+  id        String   @id @default(cuid())
+  messageId String
+  message   Message  @relation(fields: [messageId], references: [id])
+  userId    String
+  user      User     @relation("UserReactions", fields: [userId], references: [id])
+  emoji     String // 👍, ❤️, 😂, 🔥, 🎉
+  createdAt DateTime @default(now())
+
+  @@unique([messageId, userId, emoji])
+}
+
+model Room {
+  id          String        @id @default(cuid())
+  name        String        @unique
+  description String?
+  createdBy   String
+  creator     User          @relation("RoomCreator", fields: [createdBy], references: [id])
+  messages    RoomMessage[]
+  members     RoomMember[]
+  createdAt   DateTime      @default(now())
+}
+
+model RoomMember {
+  id       String    @id @default(cuid())
+  roomId   String
+  room     Room      @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  userId   String
+  user     User      @relation("RoomMembers", fields: [userId], references: [id], onDelete: Cascade)
+  joinedAt DateTime  @default(now())
+  bannedAt DateTime?
+
+  @@unique([roomId, userId])
+  @@index([roomId, bannedAt])
+}
+
+model RoomMessage {
+  id        String   @id @default(cuid())
+  content   String
+  userId    String
+  user      User     @relation("RoomMessages", fields: [userId], references: [id])
+  roomId    String
+  room      Room     @relation(fields: [roomId], references: [id])
+  createdAt DateTime @default(now())
+}
+
+model PrivateRequest {
+  id          String               @id @default(cuid())
+  requesterId String
+  requester   User                 @relation("RequestSender", fields: [requesterId], references: [id], onDelete: Cascade)
+  recipientId String
+  recipient   User                 @relation("RequestRecipient", fields: [recipientId], references: [id], onDelete: Cascade)
+  status      PrivateRequestStatus @default(PENDING)
+  roomId      String?
+  room        PrivateRoom?         @relation(fields: [roomId], references: [id])
+  createdAt   DateTime             @default(now())
+  updatedAt   DateTime             @updatedAt
+
+  @@unique([requesterId, recipientId])
+  @@index([recipientId, status])
+}
+
+model PrivateRoom {
+  id        String           @id @default(cuid())
+  userOneId String
+  userOne   User             @relation("PrivateRoomUserOne", fields: [userOneId], references: [id], onDelete: Cascade)
+  userTwoId String
+  userTwo   User             @relation("PrivateRoomUserTwo", fields: [userTwoId], references: [id], onDelete: Cascade)
+  requests  PrivateRequest[]
+  messages  PrivateMessage[]
+  createdAt DateTime         @default(now())
+
+  @@unique([userOneId, userTwoId])
+}
+
+model PrivateMessage {
+  id        String      @id @default(cuid())
+  content   String
+  senderId  String
+  sender    User        @relation("PrivateMessageSender", fields: [senderId], references: [id], onDelete: Cascade)
+  roomId    String
+  room      PrivateRoom @relation(fields: [roomId], references: [id], onDelete: Cascade)
+  createdAt DateTime    @default(now())
+
+  @@index([roomId, createdAt])
+}
