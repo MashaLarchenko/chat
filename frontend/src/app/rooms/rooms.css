@@ -1,0 +1,60 @@
+.rooms-page { min-height: 100vh; padding: 36px clamp(16px, 5vw, 76px); color: #18332e; background: #f1f5f0; font-family: 'DM Sans', sans-serif; }
+.rooms-header { display: flex; align-items: end; justify-content: space-between; max-width: 1320px; margin: 0 auto 28px; }
+.rooms-brand { display: inline-block; margin-bottom: 22px; color: #286356; font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 700; text-decoration: none; }
+.rooms-kicker, .section-label { margin: 0 0 7px; color: #a36d35; font-size: 10px; font-weight: 700; letter-spacing: .14em; text-transform: uppercase; }
+.rooms-header h1 { margin: 0; color: #1e4a42; font-family: 'Space Grotesk', sans-serif; font-size: clamp(32px, 4vw, 54px); letter-spacing: 0; }
+.rooms-back { color: #286356; font-size: 13px; font-weight: 700; text-decoration: none; }
+.rooms-layout { display: grid; grid-template-columns: 285px minmax(0, 1fr) 230px; max-width: 1320px; min-height: 650px; margin: 0 auto; overflow: hidden; background: #fff; border: 1px solid #dbe5dd; border-radius: 9px; box-shadow: 0 18px 55px rgba(24,51,46,.08); }
+.rooms-sidebar { padding: 22px 18px; background: #e8f0e8; border-right: 1px solid #dbe5dd; }
+.create-room-form { padding-bottom: 22px; border-bottom: 1px solid #cbd9ce; }
+.create-room-form input { width: 100%; margin: 0 0 8px; padding: 11px 12px; color: #18332e; background: #fff; border: 1px solid #cad7cc; border-radius: 5px; outline: 0; }
+.create-room-form input:focus { border-color: #327566; box-shadow: 0 0 0 3px rgba(50,117,102,.1); }
+.create-room-form button, .join-button, .room-composer button { width: 100%; padding: 11px 13px; color: #fff; background: #286356; border: 0; border-radius: 5px; font-size: 12px; font-weight: 700; }
+.create-room-form button:hover, .join-button:hover, .room-composer button:hover { background: #1e4a42; }
+.create-room-form button:disabled { opacity: .6; }
+.room-directory { padding-top: 22px; }
+.section-label { display: flex; justify-content: space-between; color: #5e786b; }
+.section-label span { color: #9baa9f; }
+.directory-room { display: flex; align-items: center; gap: 9px; width: 100%; margin: 3px 0; padding: 10px 8px; color: #49675a; background: transparent; border: 0; border-radius: 5px; text-align: left; }
+.directory-room:hover, .directory-room.active { background: #d5e5d7; }
+.room-dot { display: grid; place-items: center; flex: 0 0 auto; width: 25px; height: 25px; color: #5f8c72; background: #d2e4d3; border-radius: 6px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; }
+.directory-room > span:nth-child(2) { min-width: 0; flex: 1; }
+.directory-room b, .directory-room small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.directory-room b { font-size: 12px; }
+.directory-room small { margin-top: 2px; color: #8b9b91; font-size: 10px; }
+.directory-room em { color: #96a79c; font-size: 10px; font-style: normal; }
+.room-view { display: flex; flex-direction: column; min-width: 0; }
+.room-view-header { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 24px 28px; border-bottom: 1px solid #e1e8e1; }
+.room-hash { margin: 0 0 4px; color: #286356; font-family: 'Space Grotesk', sans-serif; font-size: 18px; font-weight: 700; }
+.room-view-header h2 { margin: 0; color: #839189; font-size: 12px; font-weight: 400; }
+.join-button { width: auto; padding-inline: 22px; }
+.moderator-badge { padding: 6px 9px; color: #936738; background: #fff2df; border-radius: 12px; font-size: 10px; font-weight: 700; }
+.room-messages { display: flex; flex: 1; flex-direction: column; gap: 5px; padding: 22px 28px; overflow-y: auto; }
+.room-message { display: flex; gap: 10px; padding: 10px 0; }
+.room-message-avatar, .member-avatar { display: grid; place-items: center; flex: 0 0 auto; width: 31px; height: 31px; color: #fff; background: #8baa98; border-radius: 8px; font-size: 11px; font-weight: 700; }
+.room-message > div { min-width: 0; }
+.room-message-meta { display: flex; align-items: baseline; gap: 8px; }
+.room-message-meta b { color: #315449; font-size: 12px; }
+.room-message-meta time { color: #a0aea5; font-size: 10px; }
+.room-message-meta button { padding: 0; color: #c4554e; background: transparent; border: 0; font-size: 10px; }
+.room-message p { margin: 3px 0 0; color: #5d6e66; font-size: 13px; line-height: 1.45; overflow-wrap: anywhere; }
+.room-composer { display: flex; gap: 9px; padding: 17px 28px; border-top: 1px solid #e1e8e1; }
+.room-composer input { flex: 1; min-width: 0; margin: 0; padding: 11px 13px; border: 1px solid #d4e0d5; border-radius: 5px; outline: 0; }
+.room-composer button { width: auto; padding-inline: 20px; }
+.members-panel { padding: 22px 16px; background: #fbfcfa; border-left: 1px solid #e1e8e1; }
+.member-row { display: flex; align-items: center; gap: 8px; margin: 5px 0; padding: 7px 5px; border-radius: 5px; }
+.member-row:hover { background: #f0f5ef; }
+.member-row > span:nth-child(2) { min-width: 0; flex: 1; }
+.member-row b, .member-row small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.member-row b { color: #315449; font-size: 11px; }
+.member-row small { margin-top: 2px; color: #91a097; font-size: 9px; }
+.member-row button { padding: 4px 6px; color: #ba5049; background: transparent; border: 1px solid #edc3c0; border-radius: 4px; font-size: 9px; }
+.member-row.banned { opacity: .5; }
+.members-hint { color: #8a9a91; font-size: 11px; line-height: 1.5; }
+.room-empty, .join-empty { display: grid; place-items: center; align-content: center; flex: 1; padding: 30px; color: #87968d; text-align: center; }
+.room-empty span, .join-icon { color: #b27a3e; font-size: 27px; }
+.room-empty h3, .join-empty h3 { margin: 11px 0 5px; color: #315449; font-family: 'Space Grotesk', sans-serif; font-size: 18px; }
+.room-empty p, .join-empty p { max-width: 250px; margin: 0; font-size: 12px; line-height: 1.5; }
+.rooms-toast { position: fixed; right: 24px; bottom: 24px; padding: 12px 15px; color: #a1413d; background: #fbe8e6; border: 1px solid #ebc1be; border-radius: 5px; font-size: 12px; }
+@media (max-width: 1000px) { .rooms-layout { grid-template-columns: 260px minmax(0, 1fr); } .members-panel { display: none; } }
+@media (max-width: 650px) { .rooms-page { padding: 20px 10px; } .rooms-header { align-items: start; } .rooms-header h1 { font-size: 31px; } .rooms-layout { display: block; } .rooms-sidebar { border-right: 0; border-bottom: 1px solid #dbe5dd; } .room-view { min-height: 530px; } .room-view-header, .room-composer { padding-inline: 16px; } .room-messages { padding-inline: 16px; } }
